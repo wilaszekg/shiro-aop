@@ -31,6 +31,7 @@
 		<li><a href="#exceptions">Exception Handling</a></li>
 		<li><a href="#redirect">Redirecting</a></li>
         <li><a href="#async">Async Requests</a></li>
+        <li><a>Login</a></li>
     </ul>
     <div id="simple">
 		<h2>Simple</h2>
@@ -445,6 +446,11 @@
 		</li>
 		</ul>
 	</div>
+    <div id="login">
+        <form id="loginForm">
+
+        </form>
+    </div>
 </div>
 <script type="text/javascript" src="<c:url value="/resources/jquery/1.6/jquery.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/jqueryform/2.8/jquery.form.js" />"></script>
