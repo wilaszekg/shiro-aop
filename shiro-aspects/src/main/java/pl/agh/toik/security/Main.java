@@ -3,14 +3,34 @@ package pl.agh.toik.security;
 public class Main {
     public static void main(String[] args) {
         Main main = new Main();
-        main.doIt(1);
-        //main.doIt(2);
-        new Controller().doIt(3);
+        
+       
+        Controller cont = new Controller();
+        
+        
+        main.doIt(1); //-
+        cont.unsecuredAction(); //+
+        cont.securedAction(); //-
+        
+        
+        cont.LogIn("test", "123");//role = USER, permission = MID
+        System.out.println("Logged in!");
+        
+        cont.securedAction();//+
+        cont.securedForAdminAction(); //-
+        cont.securedForUserAction(); //+
+        
+        cont.maxPermissionRequired();//-
+        cont.midPermissionRequired(); //+
+        
+        cont.LogOut();
+        System.out.println("Logged out!");
+
+        cont.securedAction();//-
+        
     }
     
-    public void LogIn(String userName, String password){
-    	UserContext.getInstance().LogIn(userName, password);
-    }
+
 
     @Secured
     public void doIt(int i) {
