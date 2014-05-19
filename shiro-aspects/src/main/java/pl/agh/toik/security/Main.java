@@ -7,6 +7,10 @@ public class Main {
         //main.doIt(2);
         new Controller().doIt(3);
     }
+    
+    public void LogIn(String userName, String password){
+    	UserContext.getInstance().LogIn(userName, password);
+    }
 
     @Secured
     public void doIt(int i) {
