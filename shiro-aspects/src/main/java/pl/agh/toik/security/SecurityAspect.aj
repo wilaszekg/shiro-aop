@@ -6,8 +6,8 @@ import pl.agh.toik.security.enums.Role;
 
 public aspect SecurityAspect {
     public pointcut secured(): @annotation(Secured);
-//    public pointcut roleReq(Role role): @annotation(RoleRequired) && args(role);
-//    public pointcut permReq(Permission permission): @annotation(PermissionRequired) && args(permission);
+    public pointcut roleReq(Role role): @annotation(RoleRequired) && args(role);
+    public pointcut permReq(Permission permission): @annotation(PermissionRequired) && args(permission);
 
     Object around(): secured(){ 
         //System.out.println(thisJoinPoint.getSignature());
@@ -21,17 +21,29 @@ public aspect SecurityAspect {
         	return null;
         }
     }
-    
-    
+        
 
-//    Object around(): roleReq(Role role) {
-//
-//        if (currentUser.hasRole(role)){
-//            Object o = proceed();
-//        }
-//    }
-//
-//    Object around(): permReq(Permission permission) {
-//
-//    }
+    Object around(): roleReq(Role role) {
+
+        if (UserContext.getInstance().hasRole(role)){
+            Object o = proceed();
+            return o;
+        }
+        else {
+        	// throw new AuthException();
+        	return null;
+        }
+    }
+
+    Object around(): permReq(Permission permission) {
+
+        if (UserContext.getInstance().hasPermission(permission)){
+            Object o = proceed();
+            return o;
+        }
+        else {
+        	// throw new AuthException();
+        	return null;
+        }
+    }
 }

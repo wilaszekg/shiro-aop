@@ -34,10 +34,23 @@ public final class UserContext {
 	public boolean isAutenthicated() {
 		return isAutenthicated;
 	}
+	
+	public boolean hasRole(Role role){
+		if (roles.contains(role)){
+			return true;
+		}
+		return false;
+	}
 
+	public boolean hasPermission(Permission permission){
+		if (permissions.contains(permission)){
+			return true;
+		}		
+		return false;
+	}
 	
 	public boolean LogIn(String userName, String password){
-		//TODO check user
+		//TODO fetch and check users
 		if(userName.equals("test") && password.equals("123")){
 			isAutenthicated = true;
 			roles = FetchRolesForUser(userName);
@@ -52,12 +65,17 @@ public final class UserContext {
 	
 	private List<Role> FetchRolesForUser(String userName){
 		//TODO
-		return new ArrayList<Role>();
+		return new ArrayList<Role>() {{
+			add(Role.USER);
+		}};
 	}
 	
 	private List<Permission> FetchPermissionsForUser(String userName){
 		//TODO
-		return new ArrayList<Permission>();
+		return new ArrayList<Permission>() {{
+			add(Permission.LOW);
+			add(Permission.MID);
+		}};
 	}
 	
 	@Secured

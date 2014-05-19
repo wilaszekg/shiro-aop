@@ -14,5 +14,5 @@ import pl.agh.toik.security.enums.Role;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RoleRequired {
-    Role roleName();
+    Role role();
 }
