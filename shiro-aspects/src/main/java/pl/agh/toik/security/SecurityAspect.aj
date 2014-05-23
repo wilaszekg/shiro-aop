@@ -1,30 +1,37 @@
 package pl.agh.toik.security;
 
-import pl.agh.toik.security.enums.Permission;
-import pl.agh.toik.security.enums.Role;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+import org.aspectj.lang.reflect.MethodSignature;
 
 public aspect SecurityAspect {
-    public pointcut secured(): @annotation(Secured);
-//    public pointcut roleReq(Role role): @annotation(RoleRequired) && args(role);
-//    public pointcut permReq(Permission permission): @annotation(PermissionRequired) && args(permission);
+    pointcut secured(): @annotation(Secured) && execution(* *(..));
+    pointcut permissionRequired(): @annotation(PermissionRequired) && execution(* *(..));
 
-    Object around(): secured(){ 
-        //System.out.println(thisJoinPoint.getSignature());
-        //System.out.println(thisJoinPoint.getArgs());
-
-        if (UserContext.getInstance().isAutenthicated()) {
+    Object around(): secured() {
+        if (SecurityUtils.getSubject().isAuthenticated()) {
+            System.out.println("User authenticated");
             Object o = proceed();
             return o;
         } else {
-           // throw new AuthException();
-        	return null;
+            System.out.println("Not authenticated");
+            throw new AuthException();
         }
     }
-    
-    
 
-//    Object around(): roleReq(Role role) {
+    Object around(): permissionRequired() {
+        MethodSignature methodSignature = (MethodSignature) thisJoinPoint.getSignature();
+        PermissionRequired annotation = methodSignature.getMethod().getAnnotation(PermissionRequired.class);
+        Subject subject = SecurityUtils.getSubject();
+        if (!subject.isAuthenticated() || !subject.isPermittedAll(annotation.value())) {
+            throw new AuthException();
+        }
+        System.out.println("User authenticated");
+        return proceed();
+    }
+
+    //    Object around(): roleReq(Role role) {
 //
 //        if (currentUser.hasRole(role)){
 //            Object o = proceed();
