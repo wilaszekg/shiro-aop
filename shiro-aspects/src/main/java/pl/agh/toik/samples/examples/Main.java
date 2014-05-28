@@ -1,4 +1,4 @@
-package pl.agh.toik.security.examples;
+package pl.agh.toik.samples.examples;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;

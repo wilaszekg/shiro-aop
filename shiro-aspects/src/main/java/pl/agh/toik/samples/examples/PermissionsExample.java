@@ -1,21 +1,21 @@
-package pl.agh.toik.security.examples;
+package pl.agh.toik.samples.examples;
 
 import pl.agh.toik.security.AuthException;
 
-public class RolesExample extends Main {
+public class PermissionsExample extends Main {
     public static void main(String[] args) {
         setupSecurityManager();
 
         Controller controller = new Controller();
         login("root", "root");
-        controller.doItAdmin();
+        controller.write();
 
         login("guest", "guest");
 
         try {
-            controller.doItAdmin();
+            controller.write();
         } catch (AuthException e) {
-            System.out.println("Guest shouldn't be permitted to execute admin's functions");
+            System.out.println("Guest shouldn't be permitted to write");
         }
     }
 }

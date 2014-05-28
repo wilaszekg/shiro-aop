@@ -1,4 +1,4 @@
-package pl.agh.toik.security.examples;
+package pl.agh.toik.samples.examples;
 
 import pl.agh.toik.security.PermissionRequired;
 import pl.agh.toik.security.RoleRequired;
