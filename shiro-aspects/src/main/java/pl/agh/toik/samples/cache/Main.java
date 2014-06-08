@@ -12,5 +12,17 @@ public class Main {
         System.out.println(computer.getResult());
         computer.setResult("new result");
         System.out.println(computer.getResult());
+        
+        System.out.println("-----------");
+        System.out.println(computer.computeParam1(5));
+        System.out.println(computer.computeParam1(5));
+        System.out.println(computer.computeParam1(10));
+        System.out.println(computer.computeParam1(5));
+
+        System.out.println(computer.computeParam2(5));
+        System.out.println(computer.computeParam2(10));
+        System.out.println(computer.computeParam2(10));
+        System.out.println(computer.computeParam2(10));
+        
     }
 }
